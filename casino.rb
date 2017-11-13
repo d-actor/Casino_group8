@@ -9,7 +9,8 @@ class Casino
   def initialize
     puts "Welcome to the Ruby Casino!"
     @player = Player.new
-    @options = ["High/Low", "Exit"]
+    puts "What game would you like to play?"
+    @options = ["High/Low", "Blackjack", "Slot Machine", "Exit"]
     menu
   end
 
@@ -20,7 +21,11 @@ class Casino
       when 0 
         HighLow.new(@player)
       when 1
-        puts "Come again."
+        Blackjack.new(@player)
+      when 2
+        SlotMachine.new(@player)
+      when 3
+        puts "Thank you come again."
         exit 
       else
         puts "Invalid choice."
@@ -28,6 +33,8 @@ class Casino
       end
       menu
   end
+
+
 end
 
 Casino.new
