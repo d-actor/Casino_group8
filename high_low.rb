@@ -28,7 +28,7 @@ class HighLow
   def place_bet
     @house_number = [*1..100]
     puts "The Casino will choose a number between 1 and 100."
-     player_number = @house_number.sample
+    @player_number = @house_number.sample
     
     puts @player_number
     puts "The Casino is going to place a concealed number between 1 and 100."
@@ -36,55 +36,43 @@ class HighLow
       @concealed_number = @house_number.sample
     #puts "Please place a bet."
       #bet = gets.to_i
-    puts "Do you think the concealed number is higher or lower than the first number."
+    puts "Is the first number higher or lower than the concealed number?"
     puts "Please enter 'high' or 'low'."
-       answer = gets.strip
-       binding.pry
+       answer = gets.strip.downcase
        odds(answer)
-      #  if answer.downcase == "high"
-      #   odds
-      #  elsif answer.downcase == "low"
-      #   odds
-      #  else 
-      #   puts "Invalid answer. Please try again."
-      #   place_bet
-      #  end
+  end
 
       def odds(answer)
-        answer
-
-        if answer.downcase == 'high' && @concealed_number > @player_number
-
-
-
-
-          
-        high == @player_number < @concealed_number
-        low == @player_number > @concealed_number
-        if 
-          low == true || high == true
-          puts "YOU WIN!"
-        elsif
-          low == false || high == false
-          puts "YOU LOSE!"
-        elsif
-          @player_number == @concealed_number
-          puts "Same number, try again."
-          game
+        case answer
+        when "high" 
+          if @concealed_number > @player_number
+            puts "The second number is: #{@concealed_number}" 
+            puts "YOU LOSE!"
+          elsif @concealed_number == @player_number
+            puts "Your bet is returned!"
+          else
+            puts "The second number is: #{@concealed_number}"  
+            puts "YOU WIN!"
+           end
+        when "low" 
+          if @concealed_number < @player_number
+            puts "The second number is: #{@concealed_number}"
+            puts "YOU WIN!"
+          elsif @concealed_number == @player_number
+            puts "Your bet is returned!"
+          else
+            puts "The second number is: #{@concealed_number}"  
+            puts "YOU LOSE!"
+          end
         else 
           puts "Invalid. Please try again."
-        game
+          place_bet
+        end
+      menu
       end
-      game
-    end
-  end
+    
+  
 end
  
-
-
-  player = Player.new
-  HighLow.new(player)
-
-
-  
-  
+player = Player.new
+HighLow.new(player)
