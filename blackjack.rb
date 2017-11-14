@@ -26,8 +26,9 @@ class Blackjack
 
   def place_bet
     puts "How much do you want to bet on this hand?"
-    bet = gets.strip.to_f
-    puts "Current bet: $#{bet}"
+    @bet = gets.strip.to_f
+    puts `clear`
+    puts "Current bet: $#{@bet}"
 
     @player_card1 = @cards.cards.sample
     @player_card2 = @cards.cards.sample
@@ -40,14 +41,70 @@ class Blackjack
     @dealer_hand << @dealer_card2
 
     puts "Your hand: "
-    print @player_hand.join("\n")
+    @player_hand.each do |card|
+      puts "#{card.rank} - #{card.suit}"
+    end
     puts "\nDealer shows: "
-    print @dealer_hand[0]
+    puts "#{@dealer_card1.rank} - #{@dealer_card1.suit}"
     puts "\nHit or stay?"
     puts "1) Hit"
     puts "2) Stay"
     puts "Selection: "
     selection = gets.strip.to_i
+    case selection
+      when 1
+        hit
+      when 2
+        end_hand
+      else
+        puts "Invalid choice"
+        puts "Selection: "
+        selection = gets.strip.to_i
+    end
+  end
+
+  def hit
+    puts `clear`
+    puts "Current bet: $#{@bet}"
+    puts "hit"
+    @player_card3 = @cards.cards.sample
+    @player_hand << @player_card3
+    @player_hand.each do |card|
+      puts "#{card.rank} - #{card.suit}"
+    end
+    puts "\nDealer shows: "
+    puts "#{@dealer_card1.rank} - #{@dealer_card1.suit}"
+    puts "\nHit or stay?"
+    puts "1) Hit"
+    puts "2) Stay"
+    puts "Selection: "
+    selection = gets.strip.to_i
+    case selection
+      when 1
+        hit
+      when 2
+        end_hand
+      else
+        puts "Invalid choice"
+        puts "Selection: "
+        selection = gets.strip.to_i
+    end
+  end
+
+  def end_hand
+    # @player_hand.each do |card|
+    #   card.rank.to_i += player_total
+    # end
+
+    @player_card1.rank.to_i + @player_card2.rank.to_i = player_total
+
+    @dealer_card1.rank.to_i + @dealer_card2.rank.to_i = dealer_total
+
+    if 21 >= player_total > dealer_total
+      puts "You win!"
+    else
+      puts "You lose!"
+    end
   end
 
 end
