@@ -2,6 +2,7 @@ require_relative 'player'
 require_relative 'card'
 require_relative 'deck'
 require 'pry'
+require 'colorize'
 
 class Blackjack
   attr_accessor :player, :deck, :card
@@ -64,7 +65,7 @@ class Blackjack
   end
 
   def hit
-    puts `clear`
+    print `clear`
     puts "Current bet: $#{@bet}"
     puts "hit"
     @player_card3 = @cards.cards.sample
@@ -92,18 +93,57 @@ class Blackjack
   end
 
   def end_hand
-    # @player_hand.each do |card|
-    #   card.rank.to_i += player_total
-    # end
+    @player_total = 0
+    @player_hand.each do |card|
+      if card.rank == "J" || card.rank == "Q" || card.rank == "K"
+        card.rank = 10
+      end
+      if card.rank == 'A'
+        puts "Ace -- 1 or 11?"
+        puts "1) 1"
+        puts "2) 11"
+        puts "Selection: "
+        selection = gets.strip.to_i
+        case selection
+          when 1
+            card.rank = 1
+          when 2
+            card.rank = 11
+          else
+            puts "Invalid choice"
+            puts "Selection: "
+            selection = gets.strip.to_i
+        end
+      end
+      @player_total += card.rank.to_i
+    end
 
-    @player_card1.rank.to_i + @player_card2.rank.to_i = player_total
+    print "Your total score: "
+    print @player_total
+    puts "\n\nDealer total: "
+    @dealer_total = 0
+    @dealer_hand.each do |card|
+      puts "#{card.rank} - #{card.suit}"
+      if card.rank == "J" || card.rank == "Q" || card.rank == "K"
+        card.rank = 10
+      end
+      if card.rank == "A"
+        card.rank = 11
+      end
+      @dealer_total += card.rank.to_i
+    end
+    print @dealer_total
+    puts "\n\n"
 
-    @dealer_card1.rank.to_i + @dealer_card2.rank.to_i = dealer_total
-
-    if 21 >= player_total > dealer_total
+    if @player_total == 21
       puts "You win!"
-    else
-      puts "You lose!"
+    elsif @player_total > 21
+      puts "You bust!"
+      puts "Dealer wins!"
+    elsif @dealer_total > @player_total
+      puts "Dealer wins"
+    elsif @player_total > @dealer_total
+      puts "You win!"
     end
   end
 

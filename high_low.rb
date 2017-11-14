@@ -6,7 +6,7 @@ require_relative 'wallet'
 
 
 class HighLow
-  attr_accessor :player 
+  attr_accessor :player
   def initialize(player)
     @player = player
     menu
@@ -19,8 +19,8 @@ class HighLow
     if choice == 1
       place_bet
     elsif choice == 2
-      
-    else 
+
+    else
       puts "Invalid choice. Choose again.".yellow
       menu
     end
@@ -35,13 +35,13 @@ class HighLow
     @house_number = [*40..70]
     puts "The Casino will choose a number between 40 and 70.".yellow
     @player_number = @house_number.sample
-    
+
     puts @player_number
     @house_number2 = [*1..100]
     puts "The Casino is going to place a concealed number between 1 and 100.".yellow
     puts "Place concealed number."
       @concealed_number = @house_number2.sample
-     
+
     puts "Is the first number higher or lower than the concealed number?".yellow
     puts "Please enter 'high' or 'low'.".yellow
        answer = gets.strip.downcase
@@ -50,9 +50,9 @@ class HighLow
 
       def odds(answer)
         case answer
-        when "high" 
+        when "high"
           if @concealed_number > @player_number
-            puts "The second number is: #{@concealed_number}" 
+            puts "The second number is: #{@concealed_number}"
             puts "YOU LOSE!".red
             `say you lose`
           elsif @concealed_number == @player_number
@@ -60,14 +60,14 @@ class HighLow
             @player.wallet.amount += @bet
             puts "You now have $#{@player.wallet.amount}."
           else
-            puts "The second number is: #{@concealed_number}"  
+            puts "The second number is: #{@concealed_number}"
             puts "YOU WIN!".green
             `say you win`
             puts "You won $#{@bet*2}!"
             @player.wallet.amount += @bet*2
             puts "You now have $#{@player.wallet.amount}."
            end
-        when "low" 
+        when "low"
           if @concealed_number > @player_number
             puts "The second number is: #{@concealed_number}"
             puts "YOU WIN!".green
@@ -77,20 +77,16 @@ class HighLow
             puts "Your bet is returned!"
             puts "Your bet $#{@bet} is returned!"
           else
-            puts "The second number is: #{@concealed_number}"  
+            puts "The second number is: #{@concealed_number}"
             puts "YOU LOSE!".red
             `say you lose`
           end
-        else 
+        else
           puts "Invalid. Please try again."
           place_bet
         end
       menu
       end
-    
-  
+
+
 end
-<<<<<<< HEAD
- 
-=======
->>>>>>> Finailze High Low.

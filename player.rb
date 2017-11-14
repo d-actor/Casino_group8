@@ -1,9 +1,10 @@
 require_relative 'wallet'
+require 'colorize'
 
 class Player
   MIN_AGE = 21
   MAX_AGE = 120
-  attr_accessor :name, :age, :wallet 
+  attr_accessor :name, :age, :wallet
 
   def initialize
     puts "What is your name, player?".yellow
@@ -22,8 +23,8 @@ class Player
   end
 
   def age_verification
-    if @age < MIN_AGE 
-      # `say GET OUT OF HERE!`
+    if @age < MIN_AGE
+      print `say GET OUT OF HERE!`
       puts "GET OUT OF HERE!"
       exit
     elsif @age > MAX_AGE
@@ -33,5 +34,3 @@ class Player
   end
 
 end
-
-  
