@@ -11,8 +11,11 @@ class HighLow
     @player = player
     menu
   end
+  
 
   def menu
+    print `clear`
+    puts "Welcome to High Low!".yellow
     puts "1) Place Bet".yellow
     puts "2) Return to Casino".yellow
     choice = gets.to_i
