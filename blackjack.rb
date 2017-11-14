@@ -27,7 +27,7 @@ class Blackjack
   def place_bet
     puts "How much do you want to bet on this hand?"
     @bet = gets.strip.to_f
-    puts `clear`
+    print `clear`
     puts "Current bet: $#{@bet}"
 
     @player_card1 = @cards.cards.sample
@@ -108,4 +108,3 @@ class Blackjack
   end
 
 end
-
