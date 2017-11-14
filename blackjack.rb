@@ -109,5 +109,3 @@ class Blackjack
 
 end
 
-player = Player.new
-Blackjack.new(player)

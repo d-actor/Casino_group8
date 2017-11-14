@@ -48,7 +48,3 @@ def play
     menu
   end
 end
-
-
-player = Player.new
-SlotMachine.new(player)

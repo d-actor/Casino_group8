@@ -86,5 +86,3 @@ class HighLow
   
 end
  
-player = Player.new
-HighLow.new(player)
