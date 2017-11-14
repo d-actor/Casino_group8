@@ -141,9 +141,12 @@ class Blackjack
       print `say Bust Dealer Wins`
       puts "You bust!"
       puts "Dealer wins!"
+      @player.wallet.amount -= @bet
     elsif @dealer_total > @player_total
       print `say Dealer Wins`
       puts "Dealer wins"
+      @player.wallet.amount -= @bet
+      puts "Wallet: $#{@player.wallet.amount}."
     elsif @player_total > @dealer_total
       print `say Winner Winner Winner`
       puts "You win!"

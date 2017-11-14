@@ -33,7 +33,7 @@ class Casino
       when 3
         SlotMachine.new(@player)
       when 4
-        puts "Your wallet has #{player.wallet.amount}."
+        puts "Your wallet has $#{player.wallet.amount}."
       when 5
         puts "Thank you come again."
         exit
