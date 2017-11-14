@@ -10,6 +10,7 @@ class Casino
 
 
   def initialize
+    print `clear`
     puts "Welcome to the Almost Famous Casino!".red
     @player = Player.new
     puts "What game would you like to play?"

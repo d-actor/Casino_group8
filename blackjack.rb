@@ -1,6 +1,7 @@
 require_relative 'player'
 require_relative 'card'
 require_relative 'deck'
+require_relative 'wallet'
 require 'pry'
 require 'colorize'
 
@@ -11,13 +12,14 @@ class Blackjack
     @cards = Deck.new
     @player_hand = []
     @dealer_hand = []
-    puts "Welcome to Blackjack #{player.name}!"
+    puts "Welcome to the Blackjack table, #{player.name}!"
     menu
   end
 
   def menu
-    puts "1) Place Bet"
-    puts "2) Casino main menu"
+    puts "======================".green
+    puts "1) Place Bet".yellow
+    puts "2) Casino main menu".yellow
     puts "Please make a selection: "
     choice = gets.strip.to_i
     if choice == 1
@@ -26,10 +28,11 @@ class Blackjack
   end
 
   def place_bet
-    puts "How much do you want to bet on this hand?"
+    puts "Current wallet: $#{@player.wallet.amount}"
+    puts "Place your bet: ".yellow
     @bet = gets.strip.to_f
     print `clear`
-    puts "Current bet: $#{@bet}"
+    puts "Current bet: $#{@bet}".green
 
     @player_card1 = @cards.cards.sample
     @player_card2 = @cards.cards.sample
@@ -41,16 +44,15 @@ class Blackjack
     @dealer_hand << @dealer_card1
     @dealer_hand << @dealer_card2
 
-    puts "Your hand: "
+    puts "Your hand: ".green
     @player_hand.each do |card|
       puts "#{card.rank} - #{card.suit}"
     end
-    puts "\nDealer shows: "
+    puts "\nDealer shows: ".red
     puts "#{@dealer_card1.rank} - #{@dealer_card1.suit}"
     puts "\nHit or stay?"
-    puts "1) Hit"
-    puts "2) Stay"
-    puts "Selection: "
+    puts "1) Hit".yellow
+    puts "2) Stay".yellow
     selection = gets.strip.to_i
     case selection
       when 1
@@ -58,15 +60,14 @@ class Blackjack
       when 2
         end_hand
       else
-        puts "Invalid choice"
-        puts "Selection: "
-        selection = gets.strip.to_i
+        puts "Invalid choice".red
+        menu
     end
   end
 
   def hit
     print `clear`
-    puts "Current bet: $#{@bet}"
+    puts "Current bet: $#{@bet}".green
     puts "hit"
     @player_card3 = @cards.cards.sample
     @player_hand << @player_card3
@@ -76,9 +77,8 @@ class Blackjack
     puts "\nDealer shows: "
     puts "#{@dealer_card1.rank} - #{@dealer_card1.suit}"
     puts "\nHit or stay?"
-    puts "1) Hit"
-    puts "2) Stay"
-    puts "Selection: "
+    puts "1) Hit".yellow
+    puts "2) Stay".yellow
     selection = gets.strip.to_i
     case selection
       when 1
@@ -87,8 +87,7 @@ class Blackjack
         end_hand
       else
         puts "Invalid choice"
-        puts "Selection: "
-        selection = gets.strip.to_i
+        menu
     end
   end
 
@@ -102,7 +101,6 @@ class Blackjack
         puts "Ace -- 1 or 11?"
         puts "1) 1"
         puts "2) 11"
-        puts "Selection: "
         selection = gets.strip.to_i
         case selection
           when 1
@@ -111,8 +109,7 @@ class Blackjack
             card.rank = 11
           else
             puts "Invalid choice"
-            puts "Selection: "
-            selection = gets.strip.to_i
+            menu
         end
       end
       @player_total += card.rank.to_i
@@ -136,15 +133,24 @@ class Blackjack
     puts "\n\n"
 
     if @player_total == 21
+      print `say Winner Winner Winner`
       puts "You win!"
+      @player.wallet.amount += @bet*2
+      puts "Wallet: $#{@player.wallet.amount}."
     elsif @player_total > 21
+      print `say Bust Dealer Wins`
       puts "You bust!"
       puts "Dealer wins!"
     elsif @dealer_total > @player_total
+      print `say Dealer Wins`
       puts "Dealer wins"
     elsif @player_total > @dealer_total
+      print `say Winner Winner Winner`
       puts "You win!"
+      @player.wallet.amount += @bet*2
+      puts "Wallet: $#{@player.wallet.amount}."
     end
+    Blackjack.new(player)
   end
 
 end
