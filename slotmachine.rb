@@ -7,6 +7,7 @@ class SlotMachine
   attr_accessor :player
   def initialize(player)
     @player = player
+  print `clear`
   puts "You are about to play the slot machine #{player.name}.".yellow
   puts "This machine only accepts fives."
   menu
