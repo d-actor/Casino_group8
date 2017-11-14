@@ -10,7 +10,7 @@ class Casino
 
 
   def initialize
-    puts "Welcome to the Almost Famous Casino!"    
+    puts "Welcome to the Almost Famous Casino!".red
     @player = Player.new
     puts "What game would you like to play?"
     @options = ["High/Low", "Blackjack", "Slot Machine", "Check your wallet", "Exit"]
@@ -19,6 +19,7 @@ class Casino
 
   def menu
     puts "=======================".green
+    puts "You are at the Almost Famous Casino.".green
     @options.each_with_index { |opt, i| puts "#{i + 1}) #{opt}" }
     puts "=======================".green
 
