@@ -10,18 +10,10 @@ class Casino
 
 
   def initialize
-<<<<<<< HEAD
-    puts "Welcome to the Ruby Casino!"
-    puts "Player info:"
-    @player = Player.new
-    @options = ["High/Low", "Blackjack", "Slot Machine", "Exit"]
-    puts "What game would you like to play?"
-=======
     puts "Welcome to the Almost Famous Casino!"    
     @player = Player.new
     puts "What game would you like to play?"
     @options = ["High/Low", "Blackjack", "Slot Machine", "Check your wallet", "Exit"]
->>>>>>> updated slot machine and menus
     menu
   end
 
